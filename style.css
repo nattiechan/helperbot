@@ -1,7 +1,7 @@
 p {
-    background: linear-gradient(90deg, black, blue, black, red, blue);
+    background: url('https://static.vecteezy.com/system/resources/thumbnails/007/698/578/small/twisted-blue-and-red-soft-gradient-background-video.jpg');
     -webkit-background-clip: text;
-            background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
-    
+
 }

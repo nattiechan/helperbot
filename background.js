@@ -1,18 +1,19 @@
-function changeTextGradient(){
-    const link = document.createElement('link');
-    link.href = chrome.runtime.getURL('style.css');
-    link.type = 'text/css';
-    link.rel = 'stylesheet';
-    document.getElementsByTagName("head")[0].appendChild("link");
-}
+chrome.action.setBadgeText({ text: "Off" });
 
 chrome.action.onClicked.addListener(async tab => {
-    try{
-        await chrome.scripting.insertCSS({
-        target: {tabId: tab.id},
-        files: ['style.css'],
-        })
-    } catch (err) {
-        console.log(err);
-    }
+    await chrome.action.getBadgeText({}).then(text => {
+        if (text === "Off") {
+            chrome.action.setBadgeText({ text: "On" });
+            chrome.scripting.insertCSS({
+                target: { tabId: tab.id },
+                files: ['style.css'],
+            })
+        } else {
+            chrome.action.setBadgeText({ text: "Off" });
+            chrome.scripting.removeCSS({
+                target: { tabId: tab.id },
+                files: ['style.css'],
+            })
+        }
+    });
 })
