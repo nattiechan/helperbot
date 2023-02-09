@@ -1,0 +1,23 @@
+{
+    "manifest_version": 3,
+    "name": "Helperbot",
+    "version": "1.0",
+    "description": "Extension that allows users to manipulate on-screen text to provide optimal readability experience.",
+    "permissions": [
+        "activeTab",
+        "storage", "scripting"
+    ],
+    "icons": {
+        "16" : "/images/icon16.png",
+        "32" : "/images/icon32.png",
+        "48" : "/images/icon48.png",
+        "128": "/images/icon48.png"
+    },
+    "action": {
+        "default_icon": "/images/icon32.png",
+        "default_title": "Helperbot"
+    },
+    "background":{
+        "service_worker": "background.js"
+    }
+}
