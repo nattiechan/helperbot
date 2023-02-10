@@ -1,19 +1,27 @@
-chrome.action.setBadgeText({ text: "Off" });
+const ON = "On";
+const OFF = "Off";
+
+const setBadgeText = (text) => {
+    return chrome.action.setBadgeText({ text: text });
+}
+
+setBadgeText(OFF);
 
 chrome.action.onClicked.addListener(async tab => {
+    const cssDetails = (id) => {
+        return {
+            target: { tabId: id },
+            files: ['style.css'],
+        }
+    }
+
     await chrome.action.getBadgeText({}).then(text => {
-        if (text === "Off") {
-            chrome.action.setBadgeText({ text: "On" });
-            chrome.scripting.insertCSS({
-                target: { tabId: tab.id },
-                files: ['style.css'],
-            })
+        if (text === OFF) {
+            setBadgeText(ON);
+            chrome.scripting.insertCSS(cssDetails(tab.id));
         } else {
-            chrome.action.setBadgeText({ text: "Off" });
-            chrome.scripting.removeCSS({
-                target: { tabId: tab.id },
-                files: ['style.css'],
-            })
+            setBadgeText(OFF);
+            chrome.scripting.removeCSS(cssDetails(tab.id));
         }
     });
 })
